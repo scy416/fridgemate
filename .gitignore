@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Secrets and local config
+.env
+
+# Local data (SQLite pantry + feedback stores)
+data/*.db
+data/*.sqlite3
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
