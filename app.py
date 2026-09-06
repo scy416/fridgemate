@@ -10,7 +10,12 @@ Three panels:
 
 from __future__ import annotations
 
+import sys
 from datetime import date
+from pathlib import Path
+
+# Streamlit runs this file directly, so make the package under src/ importable.
+sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
 import streamlit as st
 
