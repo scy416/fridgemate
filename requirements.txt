@@ -1,0 +1,11 @@
+# FridgeMate direct dependencies. Python 3.12.
+# Pinned after a clean install; see README for the setup steps.
+
+langgraph==0.2.62
+langchain-aws==0.2.11
+langchain-core==0.3.31
+boto3==1.35.99
+pydantic==2.10.5
+streamlit==1.41.1
+python-dotenv==1.0.1
+pytest==8.3.4
