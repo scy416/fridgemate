@@ -1,0 +1,2 @@
+# fridgemate
+simplifynext hackathon
