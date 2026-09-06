@@ -76,18 +76,20 @@ st.caption("Eat what you have, before it goes off.")
 items = store.list_items()
 ranked = prioritise(items, date.today())
 
-left, right = st.columns([3, 2])
+left, right = st.columns([1, 1], gap="large")
 
 with left:
     st.subheader(f"Pantry ({len(items)} items)")
     if not ranked:
         st.info("Pantry is empty. Add something from the sidebar.")
     for entry in ranked:
-        cols = st.columns([1, 6, 3, 2])
-        cols[0].write(_URGENCY_ICON[entry.urgency])
-        cols[1].write(f"**{entry.item.name}** · {entry.item.quantity}")
-        cols[2].write(entry.reason)
-        if cols[3].button("Remove", key=f"rm_{entry.item.id}"):
+        icon_col, body_col, action_col = st.columns(
+            [1, 9, 2], vertical_alignment="center"
+        )
+        icon_col.write(_URGENCY_ICON[entry.urgency])
+        body_col.write(f"**{entry.item.name}** · {entry.item.quantity}")
+        body_col.caption(entry.reason)
+        if action_col.button("🗑️", key=f"rm_{entry.item.id}", help="Remove"):
             store.remove_item(entry.item.id)
             st.rerun()
 
@@ -122,12 +124,16 @@ with right:
                         st.write("**Also buy:** " + ", ".join(r.extra_shopping))
                     for i, step in enumerate(r.steps, 1):
                         st.write(f"{i}. {step}")
-                    fb_cols = st.columns(3)
-                    if fb_cols[0].button("Cooked it", key=f"cook_{r.title}"):
+                    fb_cols = st.columns(2)
+                    if fb_cols[0].button(
+                        "Cooked it", key=f"cook_{r.title}", use_container_width=True
+                    ):
                         for used in r.uses:
                             feedback.record(used, "cooked", r.title)
                         st.toast("Logged - future suggestions will lean this way.")
-                    if fb_cols[1].button("Skipped", key=f"skip_{r.title}"):
+                    if fb_cols[1].button(
+                        "Skipped", key=f"skip_{r.title}", use_container_width=True
+                    ):
                         for used in r.uses:
                             feedback.record(used, "skipped", r.title)
                         st.toast("Noted.")
